@@ -11,3 +11,4 @@ venv/
 # Runtime uploads
 static/uploads/*
 !static/uploads/.gitkeep
+.vercel
