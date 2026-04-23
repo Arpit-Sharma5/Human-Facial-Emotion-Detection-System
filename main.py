@@ -1,11 +1,18 @@
-from flask import Flask, render_template, request
-from tensorflow.keras.models import load_model
-from tensorflow.keras.preprocessing import image
-import numpy as np
 import os
 import time
 import logging
 import threading
+from flask import Flask, render_template, request
+import numpy as np
+
+# Stabilize TensorFlow CPU behavior on constrained Linux hosts (e.g., Render free).
+os.environ.setdefault('TF_ENABLE_ONEDNN_OPTS', '0')
+os.environ.setdefault('OMP_NUM_THREADS', '1')
+os.environ.setdefault('TF_NUM_INTRAOP_THREADS', '1')
+os.environ.setdefault('TF_NUM_INTEROP_THREADS', '1')
+
+from tensorflow.keras.models import load_model
+from tensorflow.keras.preprocessing import image
 
 # Initialize Flask app
 app = Flask(__name__, template_folder='.')
