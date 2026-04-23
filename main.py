@@ -31,9 +31,9 @@ def detect_emotion(img_path):
     img_array = image.img_to_array(img) / 255.0
     img_array = np.expand_dims(img_array, axis=0)
 
-    # TensorFlow inference can behave poorly under threaded servers without a lock.
+    # Direct forward pass is more reliable than model.predict() under some server runtimes.
     with predict_lock:
-        prediction = model.predict(img_array, verbose=0)
+        prediction = model(img_array, training=False).numpy()
     predicted_index = np.argmax(prediction)
     predicted_class = class_names[predicted_index]
     confidence = round(prediction[0][predicted_index] * 100, 2)
