@@ -5,7 +5,7 @@ services:
     plan: starter
     autoDeploy: true
     buildCommand: pip install --upgrade pip && pip install -r requirements.txt
-    startCommand: gunicorn main:app --workers 1 --threads 4 --timeout 180
+    startCommand: gunicorn main:app --worker-class sync --workers 1 --timeout 600 --access-logfile -
     envVars:
       - key: PYTHON_VERSION
         value: 3.10.20
