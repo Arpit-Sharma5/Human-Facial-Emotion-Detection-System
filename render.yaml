@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: human-facial-emotion-detection-system
+    env: python
+    plan: starter
+    autoDeploy: true
+    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
+    startCommand: gunicorn main:app --workers 1 --threads 4 --timeout 180
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.20
+      - key: TF_CPP_MIN_LOG_LEVEL
+        value: "2"
